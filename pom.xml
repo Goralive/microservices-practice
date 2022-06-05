@@ -9,6 +9,7 @@
         <module>customer</module>
         <module>fraud</module>
         <module>eureka-server</module>
+        <module>clients</module>
     </modules>
     <name>services</name>
     <url>http://maven.apache.org</url>
@@ -50,6 +51,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 
