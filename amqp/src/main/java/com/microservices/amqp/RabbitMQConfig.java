@@ -1,8 +1,6 @@
 package com.microservices.amqp;
 
-
 import lombok.AllArgsConstructor;
-import lombok.val;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
