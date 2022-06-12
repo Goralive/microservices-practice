@@ -12,6 +12,7 @@
         <module>clients</module>
         <module>notification</module>
         <module>apigw</module>
+        <module>amqp</module>
     </modules>
     <name>services</name>
     <url>http://maven.apache.org</url>

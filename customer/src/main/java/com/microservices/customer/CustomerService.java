@@ -1,8 +1,8 @@
 package com.microservices.customer;
 
+import com.microservices.amqp.RabbitMQMessageProducer;
 import com.microservices.clients.fraud.FraudCheckResponse;
 import com.microservices.clients.fraud.FraudClient;
-import com.microservices.clients.notification.NotificationClient;
 import com.microservices.clients.notification.NotificationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer messageProducer;
+
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -24,15 +25,16 @@ public class CustomerService {
         FraudCheckResponse fraudCheckResponse =
                 fraudClient.isFraudster(customer.getId());
 
-        if(fraudCheckResponse.isFraudster()) {
+        if (fraudCheckResponse.isFraudster()) {
             throw new IllegalStateException("Fraud");
         }
-       notificationClient.sendNotification(
-               new NotificationRequest(
-                       customer.getId(),
-                       customer.getEmail(),
-                       String.format("Welcome %s %s", customer.getFirstName(), customer.getLastName())
-               )
-       );
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Welcome %s %s", customer.getFirstName(), customer.getLastName())
+        );
+        messageProducer.publish(notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key");
     }
 }
