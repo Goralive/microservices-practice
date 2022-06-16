@@ -5,4 +5,4 @@ metadata:
 data:
   POSTGRES_DB: admin
   POSTGRES_USER: admin
-  POSTGRES_PASSWORD: admin
+  POSTGRES_PASSWORD: password
