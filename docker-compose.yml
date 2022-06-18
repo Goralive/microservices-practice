@@ -46,30 +46,30 @@ services:
     networks:
       - spring
 
-  eureka-server:
-    image: goralive/eureka-server:latest
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-
-  apigw:
-    image: goralive/apigw:latest
-    container_name: apigw
-    ports:
-      - "8083:8083"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-      - eureka-server
+#  eureka-server:
+#    image: goralive/eureka-server:latest
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#
+#  apigw:
+#    image: goralive/apigw:latest
+#    container_name: apigw
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - eureka-server
 
   notification:
     image: goralive/notification:latest
@@ -80,8 +80,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - zipkin
-      - eureka-server
-      - apigw
       - postgres
       - rabbitmq
     networks:
@@ -97,8 +95,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - zipkin
-      - eureka-server
-      - apigw
       - postgres
       - rabbitmq
     networks:
@@ -114,8 +110,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - zipkin
-      - eureka-server
-      - apigw
       - postgres
       - rabbitmq
     networks:
