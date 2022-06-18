@@ -46,81 +46,81 @@ services:
     networks:
       - spring
 
-  eureka-server:
-    image: goralive/eureka-server:latest
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
+#  eureka-server:
+#    image: goralive/eureka-server:latest
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#
+#  apigw:
+#    image: goralive/apigw:latest
+#    container_name: apigw
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - eureka-server
 
-  apigw:
-    image: goralive/apigw:latest
-    container_name: apigw
-    ports:
-      - "8083:8083"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-      - eureka-server
-
-  notification:
-    image: goralive/notification:latest
-    container_name: notification
-    ports:
-      - "8082:8082"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - zipkin
-      - eureka-server
-      - apigw
-      - postgres
-      - rabbitmq
-    networks:
-      - spring
-      - postgres
-
-  fraud:
-    image: goralive/fraud:latest
-    container_name: fraud
-    ports:
-      - "8081:8081"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - zipkin
-      - eureka-server
-      - apigw
-      - postgres
-      - rabbitmq
-    networks:
-      - spring
-      - postgres
-
-  customer:
-    image: goralive/customer:latest
-    container_name: customer
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - zipkin
-      - eureka-server
-      - apigw
-      - postgres
-      - rabbitmq
-    networks:
-      - spring
-      - postgres
+#  notification:
+#    image: goralive/notification:latest
+#    container_name: notification
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+#      - apigw
+#      - postgres
+#      - rabbitmq
+#    networks:
+#      - spring
+#      - postgres
+#
+#  fraud:
+#    image: goralive/fraud:latest
+#    container_name: fraud
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+#      - apigw
+#      - postgres
+#      - rabbitmq
+#    networks:
+#      - spring
+#      - postgres
+#
+#  customer:
+#    image: goralive/customer:latest
+#    container_name: customer
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+#      - apigw
+#      - postgres
+#      - rabbitmq
+#    networks:
+#      - spring
+#      - postgres
 
 networks:
   postgres:
